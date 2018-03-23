@@ -349,6 +349,7 @@ func init() {
 // WorkDir returns absolute path of work directory.
 func WorkDir() (string, error) {
 	wd := os.Getenv("GOGS_WORK_DIR")
+	wd = `D:/2golang/src/github.com/gogits/gogs`
 	if len(wd) > 0 {
 		return wd, nil
 	}
