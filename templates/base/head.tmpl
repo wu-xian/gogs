@@ -11,7 +11,7 @@
 	<meta name="referrer" content="no-referrer" />
 	<meta name="_csrf" content="{{.CSRFToken}}" />
 	<meta name="_suburl" content="{{AppSubURL}}" />
-	
+
 	<!-- Open Graph Tags -->
 	{{if .PageIsAdmin}}
 	{{else if .PageIsUserProfile}}
@@ -93,6 +93,8 @@
 								{{else}}
 									<a class="item{{if .PageIsHome}} active{{end}}" href="{{AppSubURL}}/">{{.i18n.Tr "home"}}</a>
 								{{end}}
+
+								<a class="item{{if .PageIsDashboard}} active{{end}}" href="{{AppSubURL}}/mirror">{{.i18n.Tr "mirror"}}</a>
 
 								<a class="item{{if .PageIsExplore}} active{{end}}" href="{{AppSubURL}}/explore/repos">{{.i18n.Tr "explore"}}</a>
 								{{/*<div class="item">
