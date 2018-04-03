@@ -39,6 +39,7 @@ import (
 	"github.com/gogits/gogs/routes/admin"
 	apiv1 "github.com/gogits/gogs/routes/api/v1"
 	"github.com/gogits/gogs/routes/dev"
+	"github.com/gogits/gogs/routes/mirror"
 	"github.com/gogits/gogs/routes/org"
 	"github.com/gogits/gogs/routes/repo"
 	"github.com/gogits/gogs/routes/user"
@@ -643,6 +644,14 @@ func runWeb(c *cli.Context) error {
 		m.Route("/:reponame/*", "GET,POST", ignSignInAndCsrf, repo.HTTPContexter(), repo.HTTP)
 	})
 	// ***** END: Repository *****
+
+	// ***** START: Mirror *****
+
+	m.Group("/mirror", func() {
+		m.Route("", "GET,POST", mirror.Mirror)
+	})
+
+	// ***** END: Mirror *****
 
 	m.Group("/api", func() {
 		apiv1.RegisterRoutes(m)
