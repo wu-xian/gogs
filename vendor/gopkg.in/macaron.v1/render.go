@@ -32,6 +32,7 @@ import (
 	"time"
 
 	"github.com/Unknwon/com"
+	"github.com/gpmgo/gopm/modules/log"
 )
 
 const (
@@ -322,6 +323,7 @@ func (ts *TemplateSet) Set(name string, opt *RenderOptions) *template.Template {
 
 	ts.sets[name] = t
 	ts.dirs[name] = opt.Directory
+	log.Info("set name:", t)
 	return t
 }
 
