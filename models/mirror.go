@@ -305,6 +305,14 @@ func GetMirrors(page int) ([]*Mirror, error) {
 	return mirrors, sess.Find(&mirrors)
 }
 
+func GetMirrorsStatus(ids []int) ([]*Mirror, error) {
+	mirrors := make([]*Mirror, 0, len(ids))
+	err := x.Table("mirror").Join("LEFT", "repository", "mirror.repo_id=repository.id").
+		In("mirror.Id", ids).
+		Find(&mirrors)
+	return mirrors, err
+}
+
 // SyncMirrors checks and syncs mirrors.
 // TODO: sync more mirrors at same time.
 func SyncMirrors() {

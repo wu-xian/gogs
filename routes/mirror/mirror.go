@@ -13,7 +13,7 @@ const (
 
 func Mirror(c *context.Context) {
 	c.Data["PageIsMirror"] = true
-	c.Data["Name"] = "wuxian"
+	c.Data["Name"] = c.User.Name
 	mirrors, err := models.GetMirrors(1)
 	if err != nil {
 		fmt.Errorf("can not get mirrors")
@@ -21,4 +21,9 @@ func Mirror(c *context.Context) {
 	c.Data["Mirrors"] = mirrors
 
 	c.Success(MIRROR)
+}
+
+func MirrorStatus(c *context.Context) {
+	mirrorId := c.ParamsInt("mirrorId")
+	c.JSONSuccess(mirrorId)
 }

@@ -171,6 +171,11 @@ type Repository struct {
 	IsMirror bool
 	*Mirror  `xorm:"-"`
 
+	IsMigration       bool
+	MigrateUrl        string
+	IsMigrateComplete bool
+	MigrateErrors     string
+
 	// Advanced settings
 	EnableWiki            bool `xorm:"NOT NULL DEFAULT true"`
 	AllowPublicWiki       bool

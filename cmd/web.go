@@ -650,7 +650,8 @@ func runWeb(c *cli.Context) error {
 	// ***** START: Mirror *****
 
 	m.Group("/mirror", func() {
-		m.Route("", "GET,POST", mirror.Mirror)
+		m.Route("", "GET", mirror.Mirror)
+		m.Route("/status/:mirrorId(\\d+)", "GET", mirror.MirrorStatus)
 	})
 
 	// ***** END: Mirror *****
