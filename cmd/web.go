@@ -24,7 +24,6 @@ import (
 	"github.com/go-macaron/i18n"
 	"github.com/go-macaron/session"
 	"github.com/go-macaron/toolbox"
-	"github.com/mcuadros/go-version"
 	"github.com/urfave/cli"
 	log "gopkg.in/clog.v1"
 	"gopkg.in/macaron.v1"
@@ -60,18 +59,19 @@ and it takes care of all the other things for you`,
 // checkVersion checks if binary matches the version of templates files.
 func checkVersion() {
 	// Templates.
-	data, err := ioutil.ReadFile(setting.StaticRootPath + "/templates/.VERSION")
+	log.Info("info" + setting.StaticRootPath)
+	_, err := ioutil.ReadFile(setting.StaticRootPath + "/templates/.VERSION")
 	if err != nil {
 		log.Fatal(2, "Fail to read 'templates/.VERSION': %v", err)
 	}
-	tplVer := string(data)
-	if tplVer != setting.AppVer {
-		if version.Compare(tplVer, setting.AppVer, ">") {
-			log.Fatal(2, "Binary version is lower than template file version, did you forget to recompile Gogs?")
-		} else {
-			log.Fatal(2, "Binary version is higher than template file version, did you forget to update template files?")
-		}
-	}
+	// tplVer := string(data)
+	// if tplVer != setting.AppVer {
+	// 	if version.Compare(tplVer, setting.AppVer, ">") {
+	// 		log.Fatal(2, "Binary version is lower than template file version, did you forget to recompile Gogs?")
+	// 	} else {
+	// 		log.Fatal(2, "Binary version is higher than template file version, did you forget to update template files?")
+	// 	}
+	// }
 }
 
 // newMacaron initializes Macaron instance.
@@ -160,8 +160,11 @@ func runWeb(c *cli.Context) error {
 	if c.IsSet("config") {
 		setting.CustomConf = c.String("config")
 	}
+	log.Info("before GlobalInit")
 	routes.GlobalInit()
+	log.Info("before check version")
 	checkVersion()
+	log.Info("after check version")
 
 	m := newMacaron()
 
