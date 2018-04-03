@@ -17,3 +17,7 @@ output*
 *.sublime-project
 *.sublime-workspace
 /release
+gogs-repositories/
+debug
+git
+debug.test

@@ -296,6 +296,15 @@ func MirrorUpdate() {
 	}
 }
 
+// GetMirrors return all mirrors by pagination
+func GetMirrors(page int) ([]*Mirror, error) {
+	mirrors := make([]*Mirror, 0, ItemsPerPage)
+	sess := x.Table("mirror")
+	sess.Join("LEFT", "repository", "mirror.repo_id=repository.id")
+	sess = x.Limit(ItemsPerPage, (page-1)*ItemsPerPage)
+	return mirrors, sess.Find(&mirrors)
+}
+
 // SyncMirrors checks and syncs mirrors.
 // TODO: sync more mirrors at same time.
 func SyncMirrors() {
