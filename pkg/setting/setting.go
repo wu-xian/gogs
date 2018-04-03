@@ -399,6 +399,8 @@ func getOpenSSHVersion() string {
 // NOTE: do not print any log except error.
 func NewContext() {
 	workDir, err := WorkDir()
+	workDir = "C:/tools/GoPath/src/github.com/gogits/gogs"
+	log.Info("work dir" + workDir)
 	if err != nil {
 		log.Fatal(2, "Fail to get work directory: %v", err)
 	}
@@ -781,8 +783,10 @@ func newLogService() {
 	// Make sure everyone gets version info printed.
 	log.Info("%s %s", AppName, AppVer)
 	if !hasConsole {
-		log.Delete(log.CONSOLE)
+		log.Info(strconv.FormatBool(hasConsole))
+		//log.Delete(log.CONSOLE)
 	}
+	log.Info(strconv.FormatBool(hasConsole))
 }
 
 func newCacheService() {
@@ -905,9 +909,13 @@ func NewService() {
 
 func NewServices() {
 	newService()
+	log.Info("before newLogService")
 	newLogService()
+	log.Info("before newCacheService")
 	newCacheService()
+	log.Info("before newSessionService")
 	newSessionService()
+	log.Info("before newMailService")
 	newMailService()
 	newRegisterMailService()
 	newNotifyMailService()
